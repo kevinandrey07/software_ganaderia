@@ -1,258 +1,237 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
-    <title>{{ config('app.name', 'Gestión Ganadera') }}</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <title>Software Ganadero - @yield('title')</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
+        body {
+            background-color: #f0f2e9;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-        }
-        body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('images/welcome.png') }}');
-            background-size: cover;
-            background-position: center top;
-            background-attachment: fixed;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-        .wrapper {
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            overflow-x: hidden;
         }
-        .navbar-custom {
-            background: linear-gradient(90deg, #16a34a, #15803d);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            padding: 10px 20px;
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
             position: fixed;
             top: 0;
-            width: 100%;
-            z-index: 1030;
-        }
-        .navbar-custom .nav-link, .navbar-custom .navbar-brand {
-            color: #fff !important;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .navbar-custom .nav-link:hover {
-            color: #d4edda !important;
-        }
-        .main-sidebar {
-            position: fixed;
-            top: 70px; /* Separado del navbar */
             left: 0;
-            height: calc(100vh - 120px); /* Altura ajustada para navbar y footer */
-            width: 250px;
-            z-index: 1020;
+            background-color: #2d4739;
+            padding-top: 20px;
+            transition: all 0.3s ease;
             overflow-y: auto;
-            transition: transform 0.3s ease-in-out;
         }
-        .sidebar-custom {
-            background: linear-gradient(to bottom, #16a34a, #14532d);
-            border-right: 2px solid #15803d;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-            height: 100%;
-        }
-        .sidebar-custom .nav-link {
-            color: #fff !important;
-            border-radius: 8px;
-            margin: 5px 10px;
-            padding: 12px 15px;
+
+        .sidebar .nav-link {
+            color: #e6e9d8;
+            padding: 15px 25px;
             transition: all 0.3s ease;
         }
-        .sidebar-custom .nav-link:hover {
-            background-color: #15803d;
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+        .sidebar .nav-link:hover {
+            background-color: #3d5a45;
+            color: #ffffff;
+            padding-left: 35px;
         }
-        .sidebar-custom .nav-icon {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .sidebar-custom .brand-text {
-            color: #fff;
-            font-size: 1.5em;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            letter-spacing: 1px;
-        }
-        .content-wrapper {
-            position: absolute;
-            bottom: 70px; /* Espacio fijo para el footer */
-            left: 270px; /* Espacio inicial para la sidebar */
-            right: 10%; /* Margen derecho del 10% */
-            height: auto;
-            max-height: calc(100vh - 160px); /* Máximo ajustado para navbar y footer */
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px; /* Margen fijo en píxeles, no porcentaje */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            transition: all 0.3s ease-in-out;
-        }
-        /* Cuando la sidebar está oculta */
-        body.sidebar-collapse .content-wrapper {
-            left: 10%; /* Margen izquierdo del 10% */
-            right: 10%; /* Margen derecho del 10% */
-        }
-        .footer-custom {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: linear-gradient(90deg, #14532d, #16a34a);
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1030;
-            font-size: 0.9em;
-        }
-        .dropdown-menu {
-            background-color: #16a34a;
+
+        .sidebar .dropdown-menu {
+            background-color: #3d5a45;
             border: none;
+            width: 100%;
         }
-        .dropdown-item {
-            color: #fff !important;
+
+        .sidebar .dropdown-item {
+            color: #e6e9d8;
+            padding: 10px 40px;
         }
-        .dropdown-item:hover {
-            background-color: #15803d;
+
+        .sidebar .dropdown-item:hover {
+            background-color: #4a6b52;
+            color: #ffffff;
+        }
+
+        .top-navbar {
+            margin-left: 250px;
+            padding: 15px 2vw;
+            background-color: #8da960;
+            width: calc(100% - 250px);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-message {
+            color: #ffffff;
+            font-size: 24px; /* Tamaño más grande */
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1; /* Para centrarlo */
+        }
+
+        .content-wrapper {
+            margin-left: 250px;
+            padding: 80px 2vw 2vw; /* Aumentamos el padding-top para dejar espacio al navbar */
+            min-height: 100vh;
+            width: calc(100% - 250px);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(141, 169, 96, 0.3);
+            min-height: calc(100vh - 120px); /* Ajustamos la altura para que no se corte */
+            overflow-y: auto;
+        }
+
+        .main-container:hover {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .content-wrapper { margin-left: 200px; width: calc(100% - 200px); padding: 70px 15px 15px; }
+            .top-navbar { margin-left: 200px; width: calc(100% - 200px); }
+            .main-container { padding: 15px; min-height: calc(100vh - 100px); }
+            .welcome-message { font-size: 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .content-wrapper { margin-left: 0; width: 100%; padding: 60px 10px 10px; }
+            .top-navbar { margin-left: 0; width: 100%; }
+            .main-container { min-height: calc(100vh - 80px); }
+            .welcome-message { font-size: 18px; }
         }
     </style>
 </head>
-
 <body>
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-custom">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="{{ url('/') }}">Gestión Ganadera</a>
-                </li>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Animales -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Animales
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Animales</a></li>
+                <li><a class="dropdown-item" href="#">Lista de Animales</a></li>
             </ul>
-
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            {{ __('Cerrar Sesión') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Sidebar -->
-        <aside class="main-sidebar sidebar-custom elevation-4">
-            <div class="sidebar">
-                <!-- Logo y título -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="img-circle elevation-2" style="width: 40px; margin-right: 10px;">
-                    <div class="info">
-                        <a href="{{ url('/') }}" class="d-block brand-text">Gestión Ganadera</a>
-                    </div>
-                </div>
-
-                <!-- Menú -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Para Lechería -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-milk"></i>
-                                <p>Para Lechería</p>
-                            </a>
-                        </li>
-
-                        <!-- Para Animales -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cow"></i>
-                                <p>Para Animales</p>
-                            </a>
-                        </li>
-
-                        <!-- Para Bodega -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-warehouse"></i>
-                                <p>Para Bodega</p>
-                            </a>
-                        </li>
-
-                        <!-- Para Salud Animal -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-heartbeat"></i>
-                                <p>Para Salud Animal</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- Contenido principal -->
-        <div class="content-wrapper">
-            @yield('content')
         </div>
 
-        <!-- Footer -->
-        <footer class="footer-custom">
-            <p>© {{ date('Y') }} Gestión Ganadera. Todos los derechos reservados.</p>
-        </footer>
+        <!-- Lechería -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Lechería
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Leche</a></li>
+                <li><a class="dropdown-item" href="#">Visualizar Leche</a></li>
+                <li><a class="dropdown-item" href="#">Reportes</a></li>
+            </ul>
+        </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
+        <!-- Salud Animal -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Salud Animal
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Accidentes</a></li>
+                <li><a class="dropdown-item" href="#">Tratamientos</a></li>
+            </ul>
+        </div>
+
+        <!-- Bodega -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Bodega
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Insumo</a></li>
+                <li><a class="dropdown-item" href="#">Agregar Herramientas</a></li>
+                <li><a class="dropdown-item" href="#">Visualizar</a></li>
+            </ul>
+        </div>
+
+        <!-- Potreros -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Potreros
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Agregar Potreros</a></li>
+                <li><a class="dropdown-item" href="#">Gestión de Potreros</a></li>
+            </ul>
+        </div>
+
+        <!-- Partos -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Partos
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Seguimientos de Partos</a></li>
+            </ul>
+        </div>
+
+        <!-- Reportes -->
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Reportes
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Reportes Personalizados</a></li>
+            </ul>
+        </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI -->
-    <script src="{{ asset('AdminLTE-3.2.0/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('AdminLTE-3.2.0/dist/js/adminlte.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('AdminLTE-3.2.0/dist/js/demo.js') }}"></script>
+    <!-- Navbar superior con bienvenida y logout -->
+    <nav class="top-navbar">
+        <span class="welcome-message">
+            Bienvenido {{ ucfirst(Auth::user()->role ?? 'Usuario') }}
+        </span>
+        <ul class="navbar-nav d-flex align-items-center">
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" 
+                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Cerrar Sesión') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="content-wrapper">
+        <div class="main-container">
+            @yield('content')
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
