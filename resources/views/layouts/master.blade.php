@@ -153,6 +153,8 @@
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Accidentes</a></li>
                 <li><a class="dropdown-item" href="#">Tratamientos</a></li>
+                <li><a class="dropdown-item" href="#">Vacunacion</a></li>
+
             </ul>
         </div>
 
@@ -196,6 +198,14 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Reportes Personalizados</a></li>
+            </ul>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Historial
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Historial animal</a></li>
             </ul>
         </div>
     </div>
