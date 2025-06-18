@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,15 +72,18 @@
 
         .welcome-message {
             color: #ffffff;
-            font-size: 24px; /* Tamaño más grande */
+            font-size: 24px;
+            /* Tamaño más grande */
             font-weight: bold;
             text-align: center;
-            flex-grow: 1; /* Para centrarlo */
+            flex-grow: 1;
+            /* Para centrarlo */
         }
 
         .content-wrapper {
             margin-left: 250px;
-            padding: 80px 2vw 2vw; /* Aumentamos el padding-top para dejar espacio al navbar */
+            padding: 80px 2vw 2vw;
+            /* Aumentamos el padding-top para dejar espacio al navbar */
             min-height: 100vh;
             width: calc(100% - 250px);
             transition: all 0.3s ease;
@@ -93,7 +97,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border: 1px solid rgba(141, 169, 96, 0.3);
-            min-height: calc(100vh - 120px); /* Ajustamos la altura para que no se corte */
+            min-height: calc(100vh - 120px);
+            /* Ajustamos la altura para que no se corte */
             overflow-y: auto;
         }
 
@@ -103,112 +108,148 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar { width: 200px; }
-            .content-wrapper { margin-left: 200px; width: calc(100% - 200px); padding: 70px 15px 15px; }
-            .top-navbar { margin-left: 200px; width: calc(100% - 200px); }
-            .main-container { padding: 15px; min-height: calc(100vh - 100px); }
-            .welcome-message { font-size: 20px; }
+            .sidebar {
+                width: 200px;
+            }
+
+            .content-wrapper {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+                padding: 70px 15px 15px;
+            }
+
+            .top-navbar {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+            }
+
+            .main-container {
+                padding: 15px;
+                min-height: calc(100vh - 100px);
+            }
+
+            .welcome-message {
+                font-size: 20px;
+            }
         }
 
         @media (max-width: 576px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .content-wrapper { margin-left: 0; width: 100%; padding: 60px 10px 10px; }
-            .top-navbar { margin-left: 0; width: 100%; }
-            .main-container { min-height: calc(100vh - 80px); }
-            .welcome-message { font-size: 18px; }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+                width: 100%;
+                padding: 60px 10px 10px;
+            }
+
+            .top-navbar {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .main-container {
+                min-height: calc(100vh - 80px);
+            }
+
+            .welcome-message {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Animales -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Animales
+        <!-- Ejemplo para "Animales" -->
+        <div class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#animalesCollapse" role="button" aria-expanded="false">
+                Bovinos
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Agregar Animales</a></li>
-                <li><a class="dropdown-item" href="#">Lista de Animales</a></li>
-            </ul>
+            <div class="collapse" id="animalesCollapse">
+                <a class="nav-link dropdown-item" href="{{ route('razas.index') }}">Razas</a>
+                <a class="nav-link dropdown-item" href="{{ route('estados.index') }}">Estados</a>
+                <a class="nav-link dropdown-item" href="{{ route('bovinos.create') }}">Agregar Bovinos</a>
+                <a class="nav-link dropdown-item" href="{{ route('bovinos.index') }}">Lista de Bovinos</a>
+                <a class="nav-link dropdown-item" href="{{ route('bovinos.nutricion') }}#nutricion">Nutrición Bovina</a>
+                <a class="nav-link dropdown-item" href="{{ route('bovinos.seguimiento') }}#seguimiento">Seguimiento
+                    Bovino</a>
+                <a class="nav-link dropdown-item" href="{{ route('bovinos.historial') }}#historial">Historial Bovino</a>
+            </div>
         </div>
 
-        <!-- Lechería -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <!-- Ejemplo para "Lechería" -->
+        <div class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#lecheriaCollapse" role="button" aria-expanded="false">
                 Lechería
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Agregar Leche</a></li>
-                <li><a class="dropdown-item" href="#">Visualizar Leche</a></li>
-                <li><a class="dropdown-item" href="#">Reportes</a></li>
-            </ul>
+            <div class="collapse" id="lecheriaCollapse">
+                <a class="nav-link dropdown-item" href="{{ route('lecheria.create') }}">Agregar Leche</a>
+                <a class="nav-link dropdown-item" href="{{ route('lecheria.index') }}">Visualizar Leche</a>
+                <a class="nav-link dropdown-item" href="{{ route('lecheria.reportes') }}">Reportes de leche</a>
+            </div>
+
         </div>
 
-        <!-- Salud Animal -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- Repite lo mismo para los demás items -->
+        <div class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#saludAnimalCollapse" role="button"
+                aria-expanded="false">
                 Salud Animal
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Accidentes</a></li>
-                <li><a class="dropdown-item" href="#">Tratamientos</a></li>
-                <li><a class="dropdown-item" href="#">Vacunacion</a></li>
+            <div class="collapse" id="saludAnimalCollapse">
+                <a class="nav-link dropdown-item" href="{{ route('salud.novedades') }}">Agregar Novedad</a>
+                <a class="nav-link dropdown-item" href="{{ route('salud.novedadesLista') }}">Lista de Novedades</a>
+                <a class="nav-link dropdown-item" href="{{ route('salud.tratamientos') }}">Tratamientos</a>
+                <a class="nav-link dropdown-item" href="{{ route('salud.tratamientosLista') }}">Lista de
+                    Tratamientos</a>
+                <a class="nav-link dropdown-item" href="{{ route('salud.vacunacion') }}">Vacunación</a>
+            </div>
 
-            </ul>
-        </div>
-
-        <!-- Bodega -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Bodega
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Agregar Insumo</a></li>
-                <li><a class="dropdown-item" href="#">Agregar Herramientas</a></li>
-                <li><a class="dropdown-item" href="#">Visualizar</a></li>
-            </ul>
         </div>
 
         <!-- Potreros -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#potrerosCollapse" role="button" aria-expanded="false">
                 Potreros
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Agregar Potreros</a></li>
-                <li><a class="dropdown-item" href="#">Gestión de Potreros</a></li>
-            </ul>
+            <div class="collapse" id="potrerosCollapse">
+                <a class="nav-link dropdown-item" href="{{ route('potreros.create') }}">Agregar Potreros</a>
+                <a class="nav-link dropdown-item" href="{{ route('potreros.index') }}">Gestión de Potreros</a>
+                <a class="nav-link dropdown-item" href="{{ route('potreros.visualizar') }}">Visualización de
+                    Potreros</a>
+
+
+            </div>
         </div>
 
-        <!-- Partos -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Partos
+
+        <!-- Aprendices -->
+        <div class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#aprendicesCollapse" role="button"
+                aria-expanded="false">
+                Aprendices
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Seguimientos de Partos</a></li>
-            </ul>
+            <div class="collapse" id="aprendicesCollapse">
+                <!-- Fichas -->
+                <a class="nav-link dropdown-item" href="{{ route('fichas.index') }}">Fichas</a>
+
+                <!-- Aprendices -->
+                <a class="nav-link dropdown-item" href="{{ route('aprendices.index') }}">Gestión de Aprendices</a>
+
+                <!-- Tareas -->
+                <a class="nav-link dropdown-item" href="{{ route('tareas.index') }}">Tareas</a>
+            </div>
         </div>
 
-        <!-- Reportes -->
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Reportes
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Reportes Personalizados</a></li>
-            </ul>
-        </div>
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Historial
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Historial animal</a></li>
-            </ul>
-        </div>
     </div>
+
+
 
     <!-- Navbar superior con bienvenida y logout -->
     <nav class="top-navbar">
@@ -217,13 +258,13 @@
         </span>
         <ul class="navbar-nav d-flex align-items-center">
             <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" 
-                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Cerrar Sesión') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -240,8 +281,10 @@
             @yield('content')
         </div>
     </div>
+    @yield('scripts')
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
